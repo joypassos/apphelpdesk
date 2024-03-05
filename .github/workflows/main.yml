@@ -35,7 +35,7 @@ jobs:
 
       - name: Update Kubernetes Manifests
         run: |
-          sed -i 's|image: user-service-image|image: 698564276851.dkr.ecr.us-east-1.amazonaws.com/user-service:latest|' ./user-service/kubernetes/ticket-service-deployment.yaml
+          sed -i 's|image: user-service-image|image: 698564276851.dkr.ecr.us-east-1.amazonaws.com/user-service:latest|' ./user-service/kubernetes/user-service-deployment.yaml
           sed -i 's|image: ticket-service-image|image: 698564276851.dkr.ecr.us-east-1.amazonaws.com/ticket-service:latest|' ./ticket-service/kubernetes/ticket-service-deployment.yaml
           sed -i 's|image: helpdesk-service-image|image: 698564276851.dkr.ecr.us-east-1.amazonaws.com/helpdesk-service:latest|' ./helpdesk-service/kubernetes/helpdesk-service-deployment.yaml
 
