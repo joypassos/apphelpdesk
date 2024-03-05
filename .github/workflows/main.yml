@@ -23,17 +23,20 @@ jobs:
           
       - name: Build and Push Docker Images
         run: |
-          docker build -t ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/user-service:latest ./user-service
-          docker build -t ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/ticket-service:latest ./ticket-service
-          docker build -t ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/helpdesk-service:latest ./helpdesk-service
+          docker build -t user-service .
+          docker tag user-service:latest 698564276851.dkr.ecr.us-east-1.amazonaws.com/user-service:latest
+          docker build -t ticket-service .
+          docker tag ticket-service:latest 698564276851.dkr.ecr.us-east-1.amazonaws.com/ticket-service:latest
+          docker build -t helpdesk-service .
+          docker tag helpdesk-service:latest 698564276851.dkr.ecr.us-east-1.amazonaws.com/helpdesk-service:latest
         
-          docker push ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/user-service:latest
-          docker push ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/ticket-service:latest
-          docker push ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/helpdesk-service:latest
+          docker push 698564276851.dkr.ecr.us-east-1.amazonaws.com/user-service:latest
+          docker push 698564276851.dkr.ecr.us-east-1.amazonaws.com/ticket-service:latest
+          docker push 698564276851.dkr.ecr.us-east-1.amazonaws.com/helpdesk-service:latest
 
       - name: Update Kubernetes Manifests
         run: |
-          sed -i 's|image: user-service-image|image: 698564276851.dkr.ecr.us-east-1.amazonaws.com/user-service:latest|' ./user-service/kubernetes/user-service-deployment.yaml
+          sed -i 's|image: user-service-image|image: 698564276851.dkr.ecr.us-east-1.amazonaws.com/user-service:latest|' ./user-service/kubernetes/ticket-service-deployment.yaml
           sed -i 's|image: ticket-service-image|image: 698564276851.dkr.ecr.us-east-1.amazonaws.com/ticket-service:latest|' ./ticket-service/kubernetes/ticket-service-deployment.yaml
           sed -i 's|image: helpdesk-service-image|image: 698564276851.dkr.ecr.us-east-1.amazonaws.com/helpdesk-service:latest|' ./helpdesk-service/kubernetes/helpdesk-service-deployment.yaml
 
