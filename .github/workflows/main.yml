@@ -16,9 +16,10 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: 698564276851.dkr.ecr.us-east-1.amazonaws.com/user-service:latest
-          images: 698564276851.dkr.ecr.us-east-1.amazonaws.com/ticket-service:latest
-          images: 698564276851.dkr.ecr.us-east-1.amazonaws.com/helpdesk-service:latest
+          images: |
+           698564276851.dkr.ecr.us-east-1.amazonaws.com/user-service:latest
+           698564276851.dkr.ecr.us-east-1.amazonaws.com/ticket-service:latest
+           698564276851.dkr.ecr.us-east-1.amazonaws.com/helpdesk-service:latest
 
       - name: Configurar AWS CLI
         run: |
