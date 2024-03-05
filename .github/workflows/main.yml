@@ -1,6 +1,5 @@
 name: EKS Deployment
 
-
 on:
   push:
     branches:
