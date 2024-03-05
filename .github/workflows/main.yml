@@ -23,13 +23,13 @@ jobs:
           
       - name: Build and Push Docker Images
         run: |
-          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/user-service:latest ./user-service
-          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/ticket-service:latest ./ticket-service
-          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/helpdesk-service:latest ./helpdesk-service
-
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/user-service:latest
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/ticket-service:latest
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/helpdesk-service:latest
+          docker build -t ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/user-service:latest ./user-service
+          docker build -t ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/ticket-service:latest ./ticket-service
+          docker build -t ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/helpdesk-service:latest ./helpdesk-service
+        
+          docker push ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/user-service:latest
+          docker push ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/ticket-service:latest
+          docker push ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/helpdesk-service:latest
 
       - name: Update Kubernetes Manifests
         run: |
