@@ -1,6 +1,6 @@
 FROM python:3.8-slim
 
-WORKDIR /helpdesk_service
+WORKDIR /helpdesk-service
 
 RUN pip install flask requests
 

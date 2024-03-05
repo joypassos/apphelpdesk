@@ -1,7 +1,7 @@
 # user-service/Dockerfile
 FROM python:3.8-slim
 
-WORKDIR /user_service
+WORKDIR /user-service
 
 
 # Instalação de dependências diretamente no Dockerfile

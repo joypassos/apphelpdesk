@@ -1,6 +1,6 @@
 FROM python:3.8-slim
 
-WORKDIR /ticket_service
+WORKDIR /ticket-service
 
 RUN pip install flask requests
 
