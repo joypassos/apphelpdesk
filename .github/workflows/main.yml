@@ -1,5 +1,4 @@
 name: EKS Deployment
-
 on:
   push:
     branches:
@@ -12,6 +11,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Docker meta  
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: 698564276851.dkr.ecr.us-east-1.amazonaws.com/user-service:latest
+          images: 698564276851.dkr.ecr.us-east-1.amazonaws.com/ticket-service:latest
+          images: 698564276851.dkr.ecr.us-east-1.amazonaws.com/helpdesk-service:latest
 
       - name: Configurar AWS CLI
         run: |
