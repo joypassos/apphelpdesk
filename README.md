@@ -10,7 +10,7 @@ Configurar uma aplicação no Amazon EKS (Elastic Kubernetes Service) envolve v�
 - Instale e configure a AWS CLI no seu ambiente local.
 - Certifique-se de ter as credenciais de acesso corretas configuradas.
 
-### 3. Criar ECR (Elastic Container Registry):
+### 3. Criar ECR (Elastic Container Registry) e o EKS (Elastic Kubernetes Service):
 
 - Crie um repositório no ECR para cada uma das suas imagens Docker.
   ```bash
@@ -22,6 +22,17 @@ Configurar uma aplicação no Amazon EKS (Elastic Kubernetes Service) envolve v�
   ```bash
   aws ecr get-login-password --region <sua-região> | docker login --username AWS --password-stdin <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com
   ```
+
+Crie um cluster EKS na AWS. Certifique-se de substituir <seu-cluster>, <sua-região> e outros valores conforme necessário.
+
+```bash
+eksctl create cluster --name <seu-cluster> --region <sua-região> --node-type t2.small --nodes 2
+Configure o kubectl para usar o cluster EKS.
+```
+
+```bash
+aws eks --region <sua-região> update-kubeconfig --name <seu-cluster>
+```
 
 ### 4. Construir e Enviar Imagens para ECR:
 
