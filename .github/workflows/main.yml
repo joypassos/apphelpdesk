@@ -29,10 +29,6 @@ jobs:
           docker build -t ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/ticket-service:latest ./ticket-service
           docker build -t ${{ secrets.AWS_ACCESS_KEY_ID }}.dkr.ecr.${{ secrets.AWS_SECRET_ACCESS_KEY }}.amazonaws.com/helpdesk-service:latest ./helpdesk-service
   
-          docker tag user-service:latest 698564276851.dkr.ecr.us-east-1.amazonaws.com/user-service:latest
-          docker tag ticket-service:latest 698564276851.dkr.ecr.us-east-1.amazonaws.com/ticket-service:latest
-          docker tag helpdesk-service:latest 698564276851.dkr.ecr.us-east-1.amazonaws.com/helpdesk-service:latest
-
           docker push 698564276851.dkr.ecr.us-east-1.amazonaws.com/user-service:latest
           docker push 698564276851.dkr.ecr.us-east-1.amazonaws.com/ticket-service:latest
           docker push 698564276851.dkr.ecr.us-east-1.amazonaws.com/helpdesk-service:latest
