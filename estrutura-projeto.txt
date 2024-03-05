@@ -1,0 +1,34 @@
+project-root/
+│
+├── docker-compose.yaml
+│
+├── user-service/
+│   ├── Dockerfile
+│   ├── user_service.py
+│   └── kubernetes/
+│       ├── user-service-deployment.yaml
+│       └── user-service-service.yaml
+│
+├── ticket-service/
+│   ├── Dockerfile
+│   ├── ticket_service.py
+│   └── kubernetes/
+│       ├── ticket-service-deployment.yaml
+│       └── ticket-service-service.yaml
+│
+├── helpdesk-service/
+│   ├── Dockerfile
+│   ├── helpdesk_service.py
+│   └── kubernetes/
+│       ├── helpdesk-service-deployment.yaml
+│       └── helpdesk-service-service.yaml
+│
+└── kubernetes/
+    ├── user-db-deployment.yaml
+    ├── ticket-db-deployment.yaml
+    ├── user-db-service.yaml
+    ├── ticket-db-service.yaml
+    ├── user-service-deployment.yaml
+    ├── ticket-service-deployment.yaml
+    ├── helpdesk-service-deployment.yaml
+    └── helpdesk-service-service.yaml

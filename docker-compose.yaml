@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  user-service:
+    build:
+      context: ./user-service
+    ports:
+      - "5001:5001"
+    depends_on:
+      - user-db
+
+  ticket-service:
+    build:
+      context: ./ticket-service
+    ports:
+      - "5002:5002"
+    depends_on:
+      - ticket-db
+
+  helpdesk-service:
+    build:
+      context: ./helpdesk-service
+    ports:
+      - "5003:5003"
+    depends_on:
+      - user-service
+      - ticket-service
+
+  user-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: userdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  ticket-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ticketdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"

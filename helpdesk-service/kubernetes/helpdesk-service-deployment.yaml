@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helpdesk-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helpdesk-service
+  template:
+    metadata:
+      labels:
+        app: helpdesk-service
+    spec:
+      containers:
+      - name: helpdesk-service
+        image: helpdesk-service-image:latest
+        ports:
+        - containerPort: 5003
