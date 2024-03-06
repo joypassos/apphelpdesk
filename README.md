@@ -90,14 +90,14 @@ aws eks --region <sua-região> update-kubeconfig --name <seu-cluster>
 
 - Crie um arquivo `.github/workflows/main.yml` com o seguinte conteúdo (ajuste conforme necessário):
   ```yaml
-name: EKS Deployment
 
-on:
+  name: EKS Deployment
+  on:
   push:
     branches:
       - main
 
-jobs:
+  jobs:
   deploy:
     runs-on: ubuntu-latest
 
@@ -133,7 +133,8 @@ jobs:
 
       - name: Deploy to EKS
         run: kubectl apply -f ./user-service/kubernetes
-        # Repita para os demais serviços
+        run: kubectl apply -f ./ticket-service/kubernetes
+        run: kubectl apply -f ./helpdesk-service/kubernetes
   ```
 - Configure as secrets `AWS_ACCESS_KEY_ID` e `AWS_SECRET_ACCESS_KEY` no GitHub.
 
