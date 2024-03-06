@@ -90,46 +90,50 @@ aws eks --region <sua-região> update-kubeconfig --name <seu-cluster>
 
 - Crie um arquivo `.github/workflows/main.yml` com o seguinte conteúdo (ajuste conforme necessário):
   ```yaml
-  name: EKS Deployment
+name: EKS Deployment
 
-  on:
-    push:
-      branches:
-        - main
+on:
+  push:
+    branches:
+      - main
 
-  jobs:
-    deploy:
-      runs-on: ubuntu-latest
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v2
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-        - name: Configure AWS Credentials
-          run: |
-            aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws configure set region <sua-região>
+      - name: Configure AWS Credentials
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region <sua-região>
 
-        - name: Build and Push Docker Images
-          run: |
-            docker build -t <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/user-service:latest ./user-service
-            docker build -t <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/ticket-service:latest ./ticket-service
-            docker build -t <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/helpdesk-service:latest ./helpdesk-service
+      - name: Build and Push Docker Images
+        run: |
+          docker build -t <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/user-service:latest ./user-service
+          docker build -t <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/ticket-service:latest ./ticket-service
+          docker build -t <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/helpdesk-service:latest ./helpdesk-service
 
-            docker push <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/user-service:latest
-            docker push <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/ticket-service:latest
-            docker push <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/helpdesk-service:latest
+          docker push <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/user-service:latest
+          docker push <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/ticket-service:latest
+          docker push <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/helpdesk-service:latest
 
-        - name: Update Kubernetes Manifests
-          run: |
-            sed -i 's|image: user-service-image|image: <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/user-service:latest|' ./user-service/kubernetes/user-service-deployment.yaml
-            sed -i 's|image: ticket-service-image|image: <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/ticket-service:latest|' ./ticket-service/kubernetes/ticket-service-deployment.yaml
-            sed -i 's|image: helpdesk-service-image|image: <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/helpdesk-service:latest|' ./helpdesk-service/kubernetes/helpdesk-service-deployment.yaml
+      - name: Update Kubernetes Manifests
+        run: |
+          sed -i 's|image: user-service-image|image: <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/user-service:latest|' ./user-service/kubernetes/user-service-deployment.yaml
+          sed -i 's|image: ticket-service-image|image: <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/ticket-service:latest|' ./ticket-service/kubernetes/ticket-service-deployment.yaml
+          sed -i 's|image: helpdesk-service-image|image: <sua-conta-id>.dkr.ecr.<sua-região>.amazonaws.com/helpdesk-service:latest|' ./helpdesk-service/kubernetes/helpdesk-service-deployment.yaml
 
-        - name: Deploy to EKS
-          run: kubectl apply -f ./user-service/kubernetes
-          # Repita para os demais serviços
+      - name: Configure kubectl
+        run: |
+          aws eks update-kubeconfig --region <sua-região> --name <nome-do-cluster-eks>
+
+      - name: Deploy to EKS
+        run: kubectl apply -f ./user-service/kubernetes
+        # Repita para os demais serviços
   ```
 - Configure as secrets `AWS_ACCESS_KEY_ID` e `AWS_SECRET_ACCESS_KEY` no GitHub.
 
